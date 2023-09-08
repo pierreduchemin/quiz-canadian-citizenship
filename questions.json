@@ -243,17 +243,6 @@
       "correct": "Dans le guide de citoyenneté 'Découvrir le Canada'"
     },
     {
-      "id": 24,
-      "question": "Quelles sont les exigences pour devenir citoyen canadien?",
-      "answers": [
-        "Avoir au moins 18 ans, être résident permanent, avoir vécu au Canada pendant au moins 5 ans, réussir l'examen de citoyenneté, répondre aux exigences linguistiques",
-        "Avoir au moins 21 ans, être résident canadien, avoir vécu au Canada pendant au moins 10 ans, réussir l'examen de citoyenneté, répondre aux exigences de revenu",
-        "Avoir au moins 16 ans, être résident temporaire, avoir vécu au Canada pendant au moins 2 ans, réussir l'examen de citoyenneté, répondre aux exigences d'éducation",
-        "Avoir au moins 25 ans, être travailleur étranger, avoir vécu au Canada pendant au moins 3 ans, réussir l'examen de citoyenneté, répondre aux exigences de santé"
-      ],
-      "correct": "Avoir au moins 18 ans, être résident permanent, avoir vécu au Canada pendant au moins 5 ans, réussir l'examen de citoyenneté, répondre aux exigences linguistiques"
-    },
-    {
       "id": 25,
       "question": "Quel est le symbole national du Canada?",
       "answers": [

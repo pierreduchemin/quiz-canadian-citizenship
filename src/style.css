@@ -81,7 +81,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  width: min(100%, 500px);
+  width: min(100%, 900px);
 }
 
 button {
@@ -104,6 +104,14 @@ button {
 
 button:hover {
   background-color: rgb(71, 82, 196);
+}
+
+.submit {
+  margin-top: 40px;
+}
+
+.intro {
+  text-align: center;
 }
 
 .answers {

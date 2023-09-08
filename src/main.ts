@@ -9,9 +9,22 @@ const startButton = document.querySelector("#start")! as HTMLButtonElement
 
 startButton.addEventListener("click", startQuiz)
 
+let remainings = [ ...questions.values]
+let currentQuestion = -1
+
+function selectQuestion(): number {
+  if (remainings.length === 0) {
+    return -1
+  }
+  const index = Math.floor(Math.random() * remainings.length)
+  remainings.splice(index, 1)
+  return index
+}
+
 function startQuiz(event: MouseEvent) {
   event.stopPropagation()
-  let currentQuestion = 0
+  currentQuestion = selectQuestion()
+  let answeredQuestions = 0
   let score = 0
 
   displayQuestion(currentQuestion)
@@ -20,7 +33,7 @@ function startQuiz(event: MouseEvent) {
     while (app.firstElementChild) {
       app.firstElementChild.remove()
     }
-    const progress = getProgressBar(questions.values.length, currentQuestion)
+    const progress = getProgressBar(questions.values.length, answeredQuestions)
     app.appendChild(progress)
   }
 
@@ -57,9 +70,9 @@ function startQuiz(event: MouseEvent) {
   }
 
   function submit() {
-    const selectedAnswer = app.querySelector('input[name="answer"]:checked')! as HTMLInputElement
-    const value = selectedAnswer.value
-    if (value === undefined) {
+    const selectedAnswer = app.querySelector('input[name="answer"]:checked') as HTMLInputElement | null
+    const value = selectedAnswer?.value
+    if (!value) {
       return
     }
     disableAllAnswers()
@@ -73,13 +86,15 @@ function startQuiz(event: MouseEvent) {
     }
 
     showFeedback(isCorrect, question.correct, value)
-    displayNextQuestionButton(() => {
-      currentQuestion++
-      displayQuestion(currentQuestion)
-    })
 
     const feedback = getFeedbackMessage(isCorrect, question.correct)
     app.appendChild(feedback)
+    
+    displayNextQuestionButton(() => {
+      answeredQuestions++
+      currentQuestion = selectQuestion()
+      displayQuestion(currentQuestion)
+    })
   }
 
   function createAnswers(answers: string[]) {
@@ -103,7 +118,7 @@ function getTitleElement(text: string) {
 }
 
 function formatId(text: string) {
-  return text.replace(" ", "-").replace('"', "'").toLowerCase()
+  return text.replace(/\s/gi, "-").replace('/\"/gi', "'").toLowerCase()
 }
 
 function getAnswerElement(text: string) {
@@ -123,11 +138,13 @@ function getAnswerElement(text: string) {
 function getSubmitButton() {
   const submitButton = document.createElement("button")
   submitButton.innerText = "Submit"
+  submitButton.classList.add("submit")
   return submitButton
 }
 
 function showFeedback(isCorrect: boolean, correct: string, answer: string) {
   const correctAnswerId = formatId(correct)
+  
   const correctElement = document.querySelector(
     `label[for="${correctAnswerId}"]`
   )! as HTMLLabelElement
