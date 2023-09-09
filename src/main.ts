@@ -1,7 +1,5 @@
 import "./style.css"
-import * as questions from "../questions.json"
-
-const TIMEOUT = 3000
+import * as questions from "./data/questions.json"
 
 const app = document.querySelector("#app")! as HTMLElement
 
@@ -175,33 +173,14 @@ function getProgressBar(max: number, value: number) {
 }
 
 function displayNextQuestionButton(callback: () => void) {
-  let remainingTimeout = TIMEOUT
-
   app.querySelector("button")!.remove()
 
-  const getButtonText = () => `Next (${remainingTimeout / 1000}s)`
-
   const nextButton = document.createElement("button")
-  nextButton.innerText = getButtonText()
+  nextButton.innerText = `Next`
   app.appendChild(nextButton)
 
-  const interval = setInterval(() => {
-    remainingTimeout -= 1000
-    nextButton.innerText = getButtonText()
-  }, 1000)
-
-  const timeout = setTimeout(() => {
-    handleNextQuestion()
-  }, TIMEOUT)
-
-  const handleNextQuestion = () => {
-    clearInterval(interval)
-    clearTimeout(timeout)
-    callback()
-  }
-
   nextButton.addEventListener("click", () => {
-    handleNextQuestion()
+    callback()
   })
 }
 
