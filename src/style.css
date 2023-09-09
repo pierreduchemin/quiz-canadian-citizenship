@@ -98,12 +98,12 @@ button {
   min-height: 38px;
   border: none;
   color: #fff;
-  background-color: rgb(88, 101, 242);
+  background-color: rgb(216, 6, 33);
   transition: background-color 0.17s ease, color 0.17s ease;
 }
 
 button:hover {
-  background-color: rgb(71, 82, 196);
+  background-color: rgb(183, 28, 28);
 }
 
 .submit {
@@ -135,7 +135,7 @@ label {
 }
 
 label:hover {
-  border-color: #646cff;
+  border-color: rgb(191, 54, 12);
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 }
 
@@ -149,10 +149,10 @@ progress {
 }
 
 .correct {
-  background-color: #bbf7d0 !important;
+  background-color: rgb(46, 125, 50) !important;
 }
 .incorrect {
-  background-color: #fecaca !important;
+  background-color: rgb(183, 28, 28) !important;
 }
 
 .big-title {
