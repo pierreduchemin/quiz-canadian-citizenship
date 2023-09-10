@@ -146,13 +146,21 @@ label:has(:checked) {
 
 progress {
   width: 100%;
+  color: rgb(216, 6, 33);
+}
+
+progress::-moz-progress-bar {
+  background: rgb(216, 6, 33);
+}
+progress::-webkit-progress-value {
+  background: rgb(216, 6, 33);
 }
 
 .correct {
-  background-color: rgb(46, 125, 50) !important;
+  background-color: rgb(102, 187, 106) !important;
 }
 .incorrect {
-  background-color: rgb(183, 28, 28) !important;
+  background-color: rgb(229, 57, 53) !important;
 }
 
 .big-title {
