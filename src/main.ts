@@ -30,9 +30,10 @@ function startQuiz(event: MouseEvent) {
   function displayQuestion(index: number) {
     clean()
     const question = remainings[index]
-    console.log(question.question)
+    console.log(questions.values)
     console.log(remainings)
     console.log(currentQuestion)
+    console.log(question)
 
     if (!question) {
       displayFinishMessage()
@@ -45,9 +46,7 @@ function startQuiz(event: MouseEvent) {
     app.appendChild(answersDiv)
 
     const submitButton = getSubmitButton()
-
     submitButton.addEventListener("click", submit)
-
     app.appendChild(submitButton)
   }
 
@@ -60,6 +59,12 @@ function startQuiz(event: MouseEvent) {
 
     app.appendChild(h1)
     app.appendChild(p)
+
+    const restartButton = getRestartButton()
+    restartButton.addEventListener("click", () => {
+      location.reload()
+    })
+    app.appendChild(restartButton)
   }
 
   function submit() {
@@ -85,7 +90,7 @@ function startQuiz(event: MouseEvent) {
     
     displayNextQuestionButton(() => {
       answeredQuestions++
-      currentQuestion = selectQuestion()
+      currentQuestion = selectQuestion(remainings)
       displayQuestion(currentQuestion)
     })
   }
@@ -111,7 +116,7 @@ function getTitleElement(text: string) {
 }
 
 function formatId(text: string) {
-  return text.replace(/\s/gi, "-").replace('/\"/gi', "'").toLowerCase()
+  return text.replace(/\s/gi, "-").replace(/\"/gi, "'").toLowerCase()
 }
 
 function getAnswerElement(text: string) {
@@ -133,6 +138,12 @@ function getSubmitButton() {
   submitButton.innerText = "Submit"
   submitButton.classList.add("submit")
   return submitButton
+}
+
+function getRestartButton() {
+  const restartButton = document.createElement("button")
+  restartButton.innerText = "Restart"
+  return restartButton
 }
 
 function showFeedback(isCorrect: boolean, correct: string, answer: string) {
