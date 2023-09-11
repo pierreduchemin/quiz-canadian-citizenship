@@ -1,4 +1,4 @@
-import "./style.css"
+import "./styles/index.scss"
 import * as questions from "./data/questions.json"
 
 const app = document.querySelector("#app")! as HTMLElement
@@ -167,6 +167,8 @@ function getFeedbackMessage(isCorrect: boolean, correct: string) {
 
 function getProgressBar(max: number, value: number) {
   const progress = document.createElement("progress")
+  progress.classList.add("progress")
+  progress.classList.add("is-canadian-red")
   progress.setAttribute("max", max.toString())
   progress.setAttribute("value", value.toString())
   return progress

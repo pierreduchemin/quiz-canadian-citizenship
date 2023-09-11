@@ -11,7 +11,11 @@
   "devDependencies": {
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
+    "sass": "^1.66.1",
     "typescript": "^5.2.2",
     "vite": "^4.4.5"
+  },
+  "dependencies": {
+    "bulma": "^0.9.4"
   }
 }

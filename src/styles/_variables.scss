@@ -1,0 +1,21 @@
+$background-color: #ffffff;
+
+$my-red-base: rgb(216, 6, 33);
+$my-red-invert: findColorInvert($my-red-base);
+$accent-active: rgb(183, 28, 28);
+$border-active: $accent-active;
+$border-inactive: #535353;
+$error: #e22134;
+$correct: rgb(102, 187, 106);
+$incorrect: rgb(229, 57, 53);
+
+// Defines app custom colors
+@import "../node_modules/bulma/sass/utilities/derived-variables.sass";
+$addColors: (
+  "canadian-red":($my-red-base, $my-red-invert)
+);
+$colors: map-merge($colors, $addColors);
+
+
+$font-main: "DM Mono";
+$font-alt: "Anonymous Pro", monospace;
