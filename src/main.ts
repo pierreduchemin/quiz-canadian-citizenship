@@ -1,5 +1,6 @@
 import "./styles/index.scss"
 import * as questions from "./data/questions.json"
+import { selectQuestion } from './util'
 
 const app = document.querySelector("#app")! as HTMLElement
 
@@ -10,18 +11,9 @@ startButton.addEventListener("click", startQuiz)
 let remainings = [ ...questions.values]
 let currentQuestion = -1
 
-function selectQuestion(): number {
-  if (remainings.length === 0) {
-    return -1
-  }
-  const index = Math.floor(Math.random() * remainings.length)
-  remainings.splice(index, 1)
-  return index
-}
-
 function startQuiz(event: MouseEvent) {
   event.stopPropagation()
-  currentQuestion = selectQuestion()
+  currentQuestion = selectQuestion(remainings)
   let answeredQuestions = 0
   let score = 0
 
@@ -37,7 +29,10 @@ function startQuiz(event: MouseEvent) {
 
   function displayQuestion(index: number) {
     clean()
-    const question = questions.values[index]
+    const question = remainings[index]
+    console.log(question.question)
+    console.log(remainings)
+    console.log(currentQuestion)
 
     if (!question) {
       displayFinishMessage()
@@ -75,7 +70,7 @@ function startQuiz(event: MouseEvent) {
     }
     disableAllAnswers()
 
-    const question = questions.values[currentQuestion]
+    const question = remainings[currentQuestion]
 
     const isCorrect = question.correct === value
 
@@ -159,8 +154,8 @@ function showFeedback(isCorrect: boolean, correct: string, answer: string) {
 function getFeedbackMessage(isCorrect: boolean, correct: string) {
   const paragraph = document.createElement("p")
   paragraph.innerText = isCorrect
-    ? "Bravo ! Tu as eu la bonne réponse"
-    : `Désolé... mais la bonne réponse était ${correct}`
+    ? "Bravo ! Tu as eu la bonne réponse."
+    : `Désolé... mais la bonne réponse était ${correct}.`
 
   return paragraph
 }
