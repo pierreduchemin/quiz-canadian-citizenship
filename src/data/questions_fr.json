@@ -244,25 +244,25 @@
     },
     {
       "id": 23,
-      "question": "What is the name of the Canadian province that is the only one to have a land border with the United States?",
+      "question": "Quelle est la nourriture canadienne?",
       "answers": [
-        "British Columbia",
-        "Ontario",
-        "Quebec",
-        "New Brunswick"
+        "Le sushi",
+        "Les tacos",
+        "La poutine",
+        "La pizza"
       ],
-      "correct": "Ontario"
+      "correct": "La poutine"
     },
     {
       "id": 24,
-      "question": "What is the name of the Canadian province that is the only one to have a coastline on the Pacific Ocean?",
+      "question": "Quel est le sport national canadien?",
       "answers": [
-        "British Columbia",
-        "Alberta",
-        "Saskatchewan",
-        "Manitoba"
+        "Le hockey",
+        "Le baseball",
+        "Le basketball",
+        "Le football"
       ],
-      "correct": "British Columbia"
+      "correct": "Le hockey"
     },
     {
       "id": 25,
@@ -288,14 +288,14 @@
     },
     {
       "id": 27,
-      "question": "What is the name of the Canadian province that is the only one to have a time zone that is 30 minutes ahead of the standard time zones?",
+      "question": "Quelle est la faune canadienne?",
       "answers": [
-        "Newfoundland and Labrador",
-        "Nova Scotia",
-        "Prince Edward Island",
-        "New Brunswick"
+        "Les pingouins",
+        "Les kangourous",
+        "Les ours polaires",
+        "Les koalas"
       ],
-      "correct": "Newfoundland and Labrador"
+      "correct": "Les ours polaires"
     },
     {
       "id": 28,
@@ -329,226 +329,6 @@
         "Environ 40 millions"
       ],
       "correct": "Environ 40 millions"
-    },
-    {
-      "id": 31,
-      "question": "Quelle est la faune canadienne?",
-      "answers": [
-        "Les pingouins",
-        "Les kangourous",
-        "Les ours polaires",
-        "Les koalas"
-      ],
-      "correct": "Les ours polaires"
-    },
-    {
-      "id": 32,
-      "question": "Quel est le sport national canadien?",
-      "answers": [
-        "Le hockey",
-        "Le baseball",
-        "Le basketball",
-        "Le football"
-      ],
-      "correct": "Le hockey"
-    },
-    {
-      "id": 33,
-      "question": "Quelle est la nourriture canadienne?",
-      "answers": [
-        "Le sushi",
-        "Les tacos",
-        "La poutine",
-        "La pizza"
-      ],
-      "correct": "La poutine"
-    },
-    {
-      "id": 34,
-      "question": "What is the capital city of Canada?",
-      "answers": [
-        "Toronto",
-        "Vancouver",
-        "Ottawa",
-        "Montreal"
-      ],
-      "correct": "Ottawa"
-    },
-    {
-      "id": 35,
-      "question": "What is the name of the Canadian national anthem?",
-      "answers": [
-        "O Canada",
-        "God Save the Queen",
-        "The Star-Spangled Banner",
-        "La Marseillaise"
-      ],
-      "correct": "O Canada"
-    },
-    {
-      "id": 36,
-      "question": "Who is the current Prime Minister of Canada?",
-      "answers": [
-        "Justin Trudeau",
-        "Stephen Harper",
-        "Jean Chrétien",
-        "Brian Mulroney"
-      ],
-      "correct": "Justin Trudeau"
-    },
-    {
-      "id": 36,
-      "question": "What is the official language of Quebec?",
-      "answers": [
-        "English",
-        "French",
-        "Spanish",
-        "German"
-      ],
-      "correct": "French"
-    },
-    {
-      "id": 37,
-      "question": "What is the name of the Canadian flag?",
-      "answers": [
-        "The Maple Leaf",
-        "The Red Ensign",
-        "The Union Jack",
-        "The Stars and Stripes"
-      ],
-      "correct": "The Maple Leaf"
-    },
-    {
-      "id": 38,
-      "question": "What is the name of the Canadian currency?",
-      "answers": [
-        "Dollar",
-        "Euro",
-        "Yen",
-        "Pound"
-      ],
-      "correct": "Dollar"
-    },
-    {
-      "id": 39,
-      "question": "What is the highest mountain in Canada?",
-      "answers": [
-        "Mount Logan",
-        "Mount Everest",
-        "Mount Kilimanjaro",
-        "Mount Denali"
-      ],
-      "correct": "Mount Logan"
-    },
-    {
-      "id": 40,
-      "question": "What is the name of the Canadian hockey team that has won the most Stanley Cups?",
-      "answers": [
-        "Toronto Maple Leafs",
-        "Montreal Canadiens",
-        "Edmonton Oilers",
-        "Vancouver Canucks"
-      ],
-      "correct": "Montreal Canadiens"
-    },
-    {
-      "id": 41,
-      "question": "What is the name of the Canadian province that is the smallest in land area?",
-      "answers": [
-        "Prince Edward Island",
-        "Nova Scotia",
-        "New Brunswick",
-        "Newfoundland and Labrador"
-      ],
-      "correct": "Prince Edward Island"
-    },
-    {
-      "id": 42,
-      "question": "What is the name of the Canadian province that is the largest in land area?",
-      "answers": [
-        "Ontario",
-        "Quebec",
-        "British Columbia",
-        "Nunavut"
-      ],
-      "correct": "Quebec"
-    },
-    {
-      "id": 43,
-      "question": "Who is the Queen of Canada?",
-      "answers": [
-        "Queen Elizabeth II",
-        "Queen Victoria",
-        "Queen Anne",
-        "Queen Mary"
-      ],
-      "correct": "Queen Elizabeth II"
-    },
-    {
-      "id": 44,
-      "question": "What is the name of the Canadian territory that is the largest in land area?",
-      "answers": [
-        "Yukon",
-        "Northwest Territories",
-        "Nunavut",
-        "Prince Edward Island"
-      ],
-      "correct": "Nunavut"
-    },
-    {
-      "id": 45,
-      "question": "What is the name of the Canadian province that is the only officially bilingual province?",
-      "answers": [
-        "Quebec",
-        "Ontario",
-        "New Brunswick",
-        "Manitoba"
-      ],
-      "correct": "New Brunswick"
-    },
-    {
-      "id": 46,
-      "question": "What is the name of the Canadian province that is the only one to have a unicameral legislature?",
-      "answers": [
-        "Alberta",
-        "Saskatchewan",
-        "Manitoba",
-        "British Columbia"
-      ],
-      "correct": "Alberta"
-    },
-    {
-      "id": 47,
-      "question": "What is the name of the Canadian province that is the only one to have a provincial sales tax instead of a harmonized sales tax?",
-      "answers": [
-        "Ontario",
-        "Quebec",
-        "British Columbia",
-        "Saskatchewan"
-      ],
-      "correct": "British Columbia"
-    },
-    {
-      "id": 48,
-      "question": "What is the name of the Canadian province that is the only one to have a French-speaking majority?",
-      "answers": [
-        "Quebec",
-        "Ontario",
-        "New Brunswick",
-        "Manitoba"
-      ],
-      "correct": "Quebec"
-    },
-    {
-      "id": 49,
-      "question": "What is the name of the Canadian province that is the only one to have a legal drinking age of 18?",
-      "answers": [
-        "Quebec",
-        "Ontario",
-        "Alberta",
-        "Manitoba"
-      ],
-      "correct": "Quebec"
     }
   ]
 }

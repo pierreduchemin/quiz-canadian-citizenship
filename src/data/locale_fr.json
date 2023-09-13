@@ -1,0 +1,13 @@
+{
+    "info.exam_intro": "Examen de citoyenneté",
+    "info.exam_good_answer": "Bravo ! Tu as eu la bonne réponse.",
+    "info.exam_bad_answer": "Désolé... mais la bonne réponse était %{correct}.",
+    "info.exam_finished": "Tu as terminé l'examen.",
+    "info.exam_score": "Tu as eu %{score} sur %{questionSetLength} point.",
+    "info.exam_success": "Tu as réussi.",
+    "info.exam_fail": "Tu as échoué.",
+    "action.start": "Commencer",
+    "action.next": "Suivant",
+    "action.submit": "Envoyer",
+    "action.restart": "Recommencer"
+  }

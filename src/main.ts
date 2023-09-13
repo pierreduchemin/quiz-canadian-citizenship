@@ -1,15 +1,27 @@
 import "./styles/index.scss"
-import * as questions from "./data/questions.json"
+import * as questions from "./data/questions_fr.json"
+import locale_fr from "./data/locale_fr.json"
 import { getSeed, getQuestionSet } from './util'
+import Polyglot from "node-polyglot"
+
+const polyglot = new Polyglot()
+polyglot.extend(locale_fr)
 
 const app = document.querySelector("#app")! as HTMLElement
 
-const startButton = document.querySelector("#start")! as HTMLButtonElement
-
-startButton.addEventListener("click", startQuiz)
-
 const questionSetLength = 20
 const questionSet = getQuestionSet(getSeed(questionSetLength), questionSetLength)
+
+init()
+
+function init() {
+  const introText = document.querySelector("#intro")! as HTMLHeadingElement
+  introText.innerText = polyglot.t("info.exam_intro")
+
+  const startButton = document.querySelector("#start")! as HTMLButtonElement
+  startButton.innerText = polyglot.t("action.start")
+  startButton.addEventListener("click", startQuiz)
+}
 
 function startQuiz(event: MouseEvent) {
   event.stopPropagation()
@@ -46,14 +58,21 @@ function startQuiz(event: MouseEvent) {
   }
 
   function displayFinishMessage() {
+    const progress = document.querySelector("progress")
+    progress?.remove()
+
     const h1 = document.createElement("h1")
-    h1.innerText = "Tu as terminé l'examen."
-    const p = document.createElement("p")
+    h1.innerText = polyglot.t("info.exam_finished")
+
     const success = (score / questionSetLength) > 0.75
-    p.innerText = `Tu as eu ${score} sur ${questionSetLength} point. ` + (success ? "Tu as réussi." : "Tu as échoué.")
+    const p = document.createElement("p")
+    const p2 = document.createElement("p")
+    p.innerText = polyglot.t("info.exam_score", { score, questionSetLength })
+    p2.innerText = success ? polyglot.t("info.exam_success") : polyglot.t("info.exam_fail")
 
     app.appendChild(h1)
     app.appendChild(p)
+    app.appendChild(p2)
 
     const restartButton = getRestartButton()
     restartButton.addEventListener("click", () => {
@@ -128,14 +147,14 @@ function getAnswerElement(text: string) {
 
 function getSubmitButton() {
   const submitButton = document.createElement("button")
-  submitButton.innerText = "Submit"
+  submitButton.innerText = polyglot.t("action.submit")
   submitButton.classList.add("submit")
   return submitButton
 }
 
 function getRestartButton() {
   const restartButton = document.createElement("button")
-  restartButton.innerText = "Restart"
+  restartButton.innerText = polyglot.t("action.restart")
   return restartButton
 }
 
@@ -158,8 +177,8 @@ function showFeedback(isCorrect: boolean, correct: string, answer: string) {
 function getFeedbackMessage(isCorrect: boolean, correct: string) {
   const paragraph = document.createElement("p")
   paragraph.innerText = isCorrect
-    ? "Bravo ! Tu as eu la bonne réponse."
-    : `Désolé... mais la bonne réponse était ${correct}.`
+    ? polyglot.t("info.exam_good_answer")
+    : polyglot.t("info.exam_bad_answer", { correct })
 
   return paragraph
 }
@@ -177,7 +196,7 @@ function displayNextQuestionButton(callback: () => void) {
   app.querySelector("button")!.remove()
 
   const nextButton = document.createElement("button")
-  nextButton.innerText = `Next`
+  nextButton.innerText = polyglot.t("action.next")
   app.appendChild(nextButton)
 
   nextButton.addEventListener("click", () => {
