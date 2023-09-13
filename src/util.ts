@@ -1,8 +1,27 @@
-export function selectQuestion(remainings: Array<QuestionModel>): number {
-  if (remainings.length === 0) {
-    throw Error("Not able to select a question in an empty array");
+export function getSeed(length: number): number {
+  if (length <= 0) {
+    throw Error("Length must be > 0")
   }
-  const index = Math.floor(Math.random() * remainings.length);
-  remainings.splice(index, 1);
-  return index;
+  return Math.floor(Math.random() * length)
+}
+
+export function getQuestionSet(seed: number, length: number): Array<number> {
+  if (seed < 0) {
+    throw Error("Seed must be >= 0")
+  }
+  if (length <= 0) {
+    throw Error("Length must be > 0")
+  }
+  let result: Array<number> = []
+  let candidate = -1
+  result[0] = seed % length
+  result[1] = seed + 1 % length
+  for (let i = 1; i < length - 1; i++) {
+    candidate = (result[i - 1] + result[i]) % length
+    while (result.includes(candidate)) {
+      candidate++ % length
+    }
+    result[i + 1] = candidate
+  }
+  return result
 }

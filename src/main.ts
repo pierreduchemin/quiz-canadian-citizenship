@@ -1,6 +1,6 @@
 import "./styles/index.scss"
 import * as questions from "./data/questions.json"
-import { selectQuestion } from './util'
+import { getSeed, getQuestionSet } from './util'
 
 const app = document.querySelector("#app")! as HTMLElement
 
@@ -8,32 +8,27 @@ const startButton = document.querySelector("#start")! as HTMLButtonElement
 
 startButton.addEventListener("click", startQuiz)
 
-let remainings = [ ...questions.values]
-let currentQuestion = -1
+const questionSetLength = 20
+const questionSet = getQuestionSet(getSeed(questionSetLength), questionSetLength)
 
 function startQuiz(event: MouseEvent) {
   event.stopPropagation()
-  currentQuestion = selectQuestion(remainings)
-  let answeredQuestions = 0
+  let questionCount = 0
   let score = 0
 
-  displayQuestion(currentQuestion)
+  displayQuestion(questionCount)
 
   function clean() {
     while (app.firstElementChild) {
       app.firstElementChild.remove()
     }
-    const progress = getProgressBar(questions.values.length, answeredQuestions)
+    const progress = getProgressBar(questionCount, questionSetLength)
     app.appendChild(progress)
   }
 
   function displayQuestion(index: number) {
     clean()
-    const question = remainings[index]
-    console.log(questions.values)
-    console.log(remainings)
-    console.log(currentQuestion)
-    console.log(question)
+    const question = questions.values[questionSet[index]]
 
     if (!question) {
       displayFinishMessage()
@@ -54,8 +49,8 @@ function startQuiz(event: MouseEvent) {
     const h1 = document.createElement("h1")
     h1.innerText = "Tu as terminé l'examen."
     const p = document.createElement("p")
-    const success = (score / questions.values.length) > 0.75
-    p.innerText = `Tu as eu ${score} sur ${questions.values.length} point. ` + (success ? "Tu as réussi." : "Tu as échoué.")
+    const success = (score / questionSetLength) > 0.75
+    p.innerText = `Tu as eu ${score} sur ${questionSetLength} point. ` + (success ? "Tu as réussi." : "Tu as échoué.")
 
     app.appendChild(h1)
     app.appendChild(p)
@@ -75,8 +70,7 @@ function startQuiz(event: MouseEvent) {
     }
     disableAllAnswers()
 
-    const question = remainings[currentQuestion]
-
+    const question = questions.values[questionSet[questionCount]]
     const isCorrect = question.correct === value
 
     if (isCorrect) {
@@ -89,9 +83,8 @@ function startQuiz(event: MouseEvent) {
     app.appendChild(feedback)
     
     displayNextQuestionButton(() => {
-      answeredQuestions++
-      currentQuestion = selectQuestion(remainings)
-      displayQuestion(currentQuestion)
+      questionCount++
+      displayQuestion(questionCount)
     })
   }
 
@@ -171,7 +164,7 @@ function getFeedbackMessage(isCorrect: boolean, correct: string) {
   return paragraph
 }
 
-function getProgressBar(max: number, value: number) {
+function getProgressBar(value: number, max: number) {
   const progress = document.createElement("progress")
   progress.classList.add("progress")
   progress.classList.add("is-canadian-red")
