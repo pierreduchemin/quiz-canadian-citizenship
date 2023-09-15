@@ -3,16 +3,15 @@ import * as questions from "./data/questions_fr.json"
 import locale_fr from "./data/locale_fr.json"
 import { getSeed, getQuestionSet } from './util'
 import Polyglot from "node-polyglot"
+import { QuestionnaireModel } from "./data/models"
 
 const polyglot = new Polyglot()
 polyglot.extend(locale_fr)
 
 const app = document.querySelector("#app")! as HTMLElement
 
-const questionSetLength = 20
-let questionCount = 0
-let score = 0
-const questionSet = getQuestionSet(getSeed(questionSetLength), questionSetLength)
+const questionnaireModel = new QuestionnaireModel()
+const questionSet = getQuestionSet(getSeed(questionnaireModel.questionSetLength), questionnaireModel.questionSetLength)
 
 init()
 
@@ -29,14 +28,14 @@ function init() {
 
 function startQuiz(event: MouseEvent) {
   event.stopPropagation()
-  displayQuestion(questionCount)
+  displayQuestion(questionnaireModel.questionCount)
 }
 
 function clean() {
   while (app.firstElementChild) {
     app.firstElementChild.remove()
   }
-  const progress = getProgressBar(questionCount, questionSetLength)
+  const progress = getProgressBar(questionnaireModel.questionCount, questionnaireModel.questionSetLength)
   app.appendChild(progress)
 }
 
@@ -66,10 +65,10 @@ function displayFinishMessage() {
   const h1 = document.createElement("h1")
   h1.innerText = polyglot.t("info.exam_finished")
 
-  const success = (score / questionSetLength) > 0.75
+  const success = (questionnaireModel.score / questionnaireModel.questionSetLength) > 0.75
   const p = document.createElement("p")
   const p2 = document.createElement("p")
-  p.innerText = polyglot.t("info.exam_score", { score, questionSetLength })
+  p.innerText = polyglot.t("info.exam_score", { "score": questionnaireModel.score, "questionSetLength": questionnaireModel.questionSetLength })
   p2.innerText = success ? polyglot.t("info.exam_success") : polyglot.t("info.exam_fail")
 
   app.appendChild(h1)
@@ -91,11 +90,11 @@ function submit() {
   }
   disableAllAnswers()
 
-  const question = questions.values[questionSet[questionCount]]
+  const question = questions.values[questionSet[questionnaireModel.questionCount]]
   const isCorrect = question.correct === value
 
   if (isCorrect) {
-    score++
+    questionnaireModel.score++
   }
 
   showFeedback(isCorrect, question.correct, value)
@@ -104,8 +103,8 @@ function submit() {
   app.appendChild(feedback)
   
   displayNextQuestionButton(() => {
-    questionCount++
-    displayQuestion(questionCount)
+    questionnaireModel.questionCount++
+    displayQuestion(questionnaireModel.questionCount)
   })
 }
 

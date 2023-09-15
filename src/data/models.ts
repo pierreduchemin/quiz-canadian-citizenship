@@ -1,16 +1,8 @@
-type QuestionnaireModel = {
-    questions: Array<QuestionModel>;
-    remainings: Array<QuestionModel>;
-    currentQuestion: number;
-    answeredCount: number;
-    score: number;
-};
-var questionnaire: QuestionnaireModel = {
-    questions: [],
-    remainings: [],
-    currentQuestion: -1,
-    answeredCount: 0,
-    score: 0
+export class QuestionnaireModel {
+    questionSetLength: number = 20;
+    questionCount: number = 0
+    score!: number;
+    questions: Array<QuestionModel> = [];
 };
 
 type QuestionModel = {
