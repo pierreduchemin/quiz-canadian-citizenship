@@ -10,6 +10,8 @@ polyglot.extend(locale_fr)
 const app = document.querySelector("#app")! as HTMLElement
 
 const questionSetLength = 20
+let questionCount = 0
+let score = 0
 const questionSet = getQuestionSet(getSeed(questionSetLength), questionSetLength)
 
 init()
@@ -27,100 +29,97 @@ function init() {
 
 function startQuiz(event: MouseEvent) {
   event.stopPropagation()
-  let questionCount = 0
-  let score = 0
-
   displayQuestion(questionCount)
+}
 
-  function clean() {
-    while (app.firstElementChild) {
-      app.firstElementChild.remove()
-    }
-    const progress = getProgressBar(questionCount, questionSetLength)
-    app.appendChild(progress)
+function clean() {
+  while (app.firstElementChild) {
+    app.firstElementChild.remove()
+  }
+  const progress = getProgressBar(questionCount, questionSetLength)
+  app.appendChild(progress)
+}
+
+function displayQuestion(index: number) {
+  clean()
+  const question = questions.values[questionSet[index]]
+
+  if (!question) {
+    displayFinishMessage()
+    return
   }
 
-  function displayQuestion(index: number) {
-    clean()
-    const question = questions.values[questionSet[index]]
+  const title = getTitleElement(question.question)
+  app.appendChild(title)
+  const answersDiv = createAnswers(question.answers)
+  app.appendChild(answersDiv)
 
-    if (!question) {
-      displayFinishMessage()
-      return
-    }
+  const submitButton = getSubmitButton()
+  submitButton.addEventListener("click", submit)
+  app.appendChild(submitButton)
+}
 
-    const title = getTitleElement(question.question)
-    app.appendChild(title)
-    const answersDiv = createAnswers(question.answers)
-    app.appendChild(answersDiv)
+function displayFinishMessage() {
+  const progress = document.querySelector("progress")
+  progress?.remove()
 
-    const submitButton = getSubmitButton()
-    submitButton.addEventListener("click", submit)
-    app.appendChild(submitButton)
+  const h1 = document.createElement("h1")
+  h1.innerText = polyglot.t("info.exam_finished")
+
+  const success = (score / questionSetLength) > 0.75
+  const p = document.createElement("p")
+  const p2 = document.createElement("p")
+  p.innerText = polyglot.t("info.exam_score", { score, questionSetLength })
+  p2.innerText = success ? polyglot.t("info.exam_success") : polyglot.t("info.exam_fail")
+
+  app.appendChild(h1)
+  app.appendChild(p)
+  app.appendChild(p2)
+
+  const restartButton = getRestartButton()
+  restartButton.addEventListener("click", () => {
+    location.reload()
+  })
+  app.appendChild(restartButton)
+}
+
+function submit() {
+  const selectedAnswer = app.querySelector('input[name="answer"]:checked') as HTMLInputElement | null
+  const value = selectedAnswer?.value
+  if (!value) {
+    return
+  }
+  disableAllAnswers()
+
+  const question = questions.values[questionSet[questionCount]]
+  const isCorrect = question.correct === value
+
+  if (isCorrect) {
+    score++
   }
 
-  function displayFinishMessage() {
-    const progress = document.querySelector("progress")
-    progress?.remove()
+  showFeedback(isCorrect, question.correct, value)
 
-    const h1 = document.createElement("h1")
-    h1.innerText = polyglot.t("info.exam_finished")
+  const feedback = getFeedbackMessage(isCorrect, question.correct)
+  app.appendChild(feedback)
+  
+  displayNextQuestionButton(() => {
+    questionCount++
+    displayQuestion(questionCount)
+  })
+}
 
-    const success = (score / questionSetLength) > 0.75
-    const p = document.createElement("p")
-    const p2 = document.createElement("p")
-    p.innerText = polyglot.t("info.exam_score", { score, questionSetLength })
-    p2.innerText = success ? polyglot.t("info.exam_success") : polyglot.t("info.exam_fail")
+function createAnswers(answers: string[]) {
+  const answersDiv = document.createElement("div")
 
-    app.appendChild(h1)
-    app.appendChild(p)
-    app.appendChild(p2)
+  answersDiv.classList.add("answers")
 
-    const restartButton = getRestartButton()
-    restartButton.addEventListener("click", () => {
-      location.reload()
-    })
-    app.appendChild(restartButton)
+  for (const answer of answers) {
+    const label = getAnswerElement(answer)
+    answersDiv.appendChild(label)
   }
 
-  function submit() {
-    const selectedAnswer = app.querySelector('input[name="answer"]:checked') as HTMLInputElement | null
-    const value = selectedAnswer?.value
-    if (!value) {
-      return
-    }
-    disableAllAnswers()
-
-    const question = questions.values[questionSet[questionCount]]
-    const isCorrect = question.correct === value
-
-    if (isCorrect) {
-      score++
-    }
-
-    showFeedback(isCorrect, question.correct, value)
-
-    const feedback = getFeedbackMessage(isCorrect, question.correct)
-    app.appendChild(feedback)
-    
-    displayNextQuestionButton(() => {
-      questionCount++
-      displayQuestion(questionCount)
-    })
-  }
-
-  function createAnswers(answers: string[]) {
-    const answersDiv = document.createElement("div")
-
-    answersDiv.classList.add("answers")
-
-    for (const answer of answers) {
-      const label = getAnswerElement(answer)
-      answersDiv.appendChild(label)
-    }
-
-    return answersDiv
-  }
+  return answersDiv
 }
 
 function getTitleElement(text: string) {
