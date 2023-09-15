@@ -15,6 +15,8 @@ const questionSet = getQuestionSet(getSeed(questionSetLength), questionSetLength
 init()
 
 function init() {
+  document.title = polyglot.t("info.app_title")
+
   const introText = document.querySelector("#intro")! as HTMLHeadingElement
   introText.innerText = polyglot.t("info.exam_intro")
 

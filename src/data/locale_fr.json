@@ -1,4 +1,5 @@
 {
+    "info.app_title": "Examen de citoyenneté",
     "info.exam_intro": "Examen de citoyenneté",
     "info.exam_good_answer": "Bravo ! Tu as eu la bonne réponse.",
     "info.exam_bad_answer": "Désolé... mais la bonne réponse était %{correct}.",

@@ -1,4 +1,5 @@
 {
+    "info.app_title": "Citizenship exam",
     "info.exam_intro": "Citizenship exam",
     "info.exam_good_answer": "Yay ! You got the good answer.",
     "info.exam_bad_answer": "Sorry... the good answer was %{correct}.",
