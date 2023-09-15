@@ -1,0 +1,13 @@
+{
+    "info.exam_intro": "Citizenship exam",
+    "info.exam_good_answer": "Yay ! You got the good answer.",
+    "info.exam_bad_answer": "Sorry... the good answer was %{correct}.",
+    "info.exam_finished": "The exam is over.",
+    "info.exam_score": "You got %{score} on %{questionSetLength} points.",
+    "info.exam_success": "You passed.",
+    "info.exam_fail": "You failed.",
+    "action.start": "Start",
+    "action.next": "Next",
+    "action.submit": "Submit",
+    "action.restart": "Restart"
+}
