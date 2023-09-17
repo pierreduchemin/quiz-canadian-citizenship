@@ -9,6 +9,7 @@ The questions from this app are not endorced by IRCC. Those are just made up exa
 - translation
 - add a timer
 - add question grid
+- add TTS with https://github.com/coqui-ai/TTS?
 
 ## Contributors
 <a href="https://github.com/pierreduchemin/quiz-canadian-citizenship/graphs/contributors">

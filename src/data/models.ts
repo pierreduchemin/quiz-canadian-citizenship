@@ -7,16 +7,18 @@ export class QuestionnaireModel {
     questions: Array<QuestionModel>
     questionSet: Array<number>
 
-    constructor() {
+    constructor(locale: string) {
         this.questionSetLength = 20
         this.questionCount = 0
         this.score = 0
         this.questions = []
         this.questionSet = getQuestionSet(getSeed(this.questionSetLength), this.questionSetLength)
+
+        this.setAllQuestions(locale)
     }
 
-    async setAllQuestions() {
-        this.questions = await this.api<QuestionModel[]>('../data/questions_fr.json')
+    async setAllQuestions(locale: string) {
+        this.questions = await this.api<QuestionModel[]>('./questions_' + locale + '.json')
     }
 
     async api<T>(url: string): Promise<T> {

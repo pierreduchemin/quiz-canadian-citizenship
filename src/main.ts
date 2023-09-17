@@ -1,6 +1,5 @@
 import Polyglot from "node-polyglot"
-import locale_fr from "./data/locale_fr.json"
-import questions from "./data/questions_fr.json"
+import locale_fr from "./data/locale_fr_CA.json"
 import "./styles/index.scss"
 import { QuestionModel, QuestionnaireModel } from "./data/models"
 
@@ -9,7 +8,7 @@ polyglot.extend(locale_fr)
 
 const app = document.querySelector("#app")! as HTMLElement
 
-const questionnaireModel = new QuestionnaireModel()
+const questionnaireModel = new QuestionnaireModel('fr_CA')
 
 init()
 
@@ -39,7 +38,7 @@ function clean() {
 
 function displayQuestion(index: number) {
   clean()
-  const question: QuestionModel = questions[questionnaireModel.questionSet[index]]
+  const question: QuestionModel = questionnaireModel.questions[questionnaireModel.questionSet[index]]
 
   if (!question) {
     displayFinishMessage()
@@ -89,7 +88,7 @@ function submit() {
   disableAllAnswers()
 
 
-  const question: QuestionModel = questions[questionnaireModel.questionSet[questionnaireModel.questionCount]]
+  const question: QuestionModel = questionnaireModel.questions[questionnaireModel.questionSet[questionnaireModel.questionCount]]
   const isCorrect = question.answer === value
 
   if (isCorrect) {
