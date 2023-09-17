@@ -1,9 +1,8 @@
-import "./styles/index.scss"
-import * as questions from "./data/questions_fr.json"
-import locale_fr from "./data/locale_fr.json"
-import { getSeed, getQuestionSet } from './util'
 import Polyglot from "node-polyglot"
-import { QuestionnaireModel } from "./data/models"
+import locale_fr from "./data/locale_fr.json"
+import questions from "./data/questions_fr.json"
+import "./styles/index.scss"
+import { QuestionModel, QuestionnaireModel } from "./data/models"
 
 const polyglot = new Polyglot()
 polyglot.extend(locale_fr)
@@ -11,7 +10,6 @@ polyglot.extend(locale_fr)
 const app = document.querySelector("#app")! as HTMLElement
 
 const questionnaireModel = new QuestionnaireModel()
-const questionSet = getQuestionSet(getSeed(questionnaireModel.questionSetLength), questionnaireModel.questionSetLength)
 
 init()
 
@@ -41,7 +39,7 @@ function clean() {
 
 function displayQuestion(index: number) {
   clean()
-  const question = questions.values[questionSet[index]]
+  const question: QuestionModel = questions[questionnaireModel.questionSet[index]]
 
   if (!question) {
     displayFinishMessage()
@@ -50,7 +48,7 @@ function displayQuestion(index: number) {
 
   const title = getTitleElement(question.question)
   app.appendChild(title)
-  const answersDiv = createAnswers(question.answers)
+  const answersDiv = createAnswers(question.options)
   app.appendChild(answersDiv)
 
   const submitButton = getSubmitButton()
@@ -90,16 +88,17 @@ function submit() {
   }
   disableAllAnswers()
 
-  const question = questions.values[questionSet[questionnaireModel.questionCount]]
-  const isCorrect = question.correct === value
+
+  const question: QuestionModel = questions[questionnaireModel.questionSet[questionnaireModel.questionCount]]
+  const isCorrect = question.answer === value
 
   if (isCorrect) {
     questionnaireModel.score++
   }
 
-  showFeedback(isCorrect, question.correct, value)
+  showFeedback(isCorrect, question.answer, value)
 
-  const feedback = getFeedbackMessage(isCorrect, question.correct)
+  const feedback = getFeedbackMessage(isCorrect, question.answer)
   app.appendChild(feedback)
   
   displayNextQuestionButton(() => {
