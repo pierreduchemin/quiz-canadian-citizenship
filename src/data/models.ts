@@ -1,4 +1,4 @@
-import { getQuestionSet, getSeed } from "../util";
+import { getQuestionSet, getSeed, api } from "../util";
 
 export class QuestionnaireModel {
     questionSetLength: number
@@ -12,21 +12,14 @@ export class QuestionnaireModel {
         this.questionCount = 0
         this.score = 0
         this.questions = []
-        this.questionSet = getQuestionSet(getSeed(this.questionSetLength), this.questionSetLength)
-
-        this.setAllQuestions(locale)
+        this.questionSet = []
+        
+        this.initQuestions(locale)
     }
 
-    async setAllQuestions(locale: string) {
-        this.questions = await this.api<QuestionModel[]>('./questions_' + locale + '.json')
-    }
-
-    async api<T>(url: string): Promise<T> {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(response.statusText);
-        }
-        return await (response.json() as Promise<T>);
+    async initQuestions(locale: string) {
+        this.questions = await api<QuestionModel[]>('./questions_' + locale + '.json')
+        this.questionSet = getQuestionSet(getSeed(this.questionSetLength), this.questions.length, this.questionSetLength)
     }
 };
 
