@@ -11,50 +11,6 @@
     "answer": "Chef de l'État"
   },
   {
-    "id": 2,
-    "question": "Quel est le rôle du Sénat du Canada?",
-    "options": [
-      "Proposer des lois",
-      "Adopter des lois",
-      "Représenter les provinces et les territoires",
-      "Représenter les citoyens"
-    ],
-    "answer": "Représenter les provinces et les territoires"
-  },
-  {
-    "id": 3,
-    "question": "Quel est le rôle des députés provinciaux et territoriaux?",
-    "options": [
-      "Proposer des lois",
-      "Adopter des lois",
-      "Représenter les provinces et les territoires",
-      "Représenter les citoyens"
-    ],
-    "answer": "Représenter les provinces et les territoires"
-  },
-  {
-    "id": 4,
-    "question": "Quel est le rôle des députés fédéraux?",
-    "options": [
-      "Proposer des lois",
-      "Adopter des lois",
-      "Représenter les provinces et les territoires",
-      "Représenter les citoyens"
-    ],
-    "answer": "Représenter les citoyens"
-  },
-  {
-    "id": 5,
-    "question": "Quel est le rôle des partis politiques?",
-    "options": [
-      "Proposer des lois",
-      "Adopter des lois",
-      "Influencer les décisions politiques",
-      "Représenter les citoyens"
-    ],
-    "answer": "Proposer des lois"
-  },
-  {
     "id": 6,
     "question": "Quel est le rôle des médias?",
     "options": [
@@ -64,28 +20,6 @@
       "Représenter les citoyens"
     ],
     "answer": "Informer les citoyens"
-  },
-  {
-    "id": 7,
-    "question": "Quel est le rôle des groupes de pression?",
-    "options": [
-      "Proposer des lois",
-      "Adopter des lois",
-      "Influencer les décisions politiques",
-      "Représenter les citoyens"
-    ],
-    "answer": "Influencer les décisions politiques"
-  },
-  {
-    "id": 8,
-    "question": "Quel est le rôle des citoyens?",
-    "options": [
-      "Proposer des lois",
-      "Adopter des lois",
-      "Influencer les décisions politiques",
-      "Élire les représentants"
-    ],
-    "answer": "Élire les représentants"
   },
   {
     "id": 9,
@@ -152,17 +86,6 @@
       "Gérer les affaires nationales"
     ],
     "answer": "Gérer les affaires nationales"
-  },
-  {
-    "id": 15,
-    "question": "Quel est le rôle des gouvernements provinciaux et territoriaux?",
-    "options": [
-      "Gérer les affaires nationales",
-      "Gérer les affaires municipales",
-      "Gérer les affaires territoriales",
-      "Gérer les affaires provinciales"
-    ],
-    "answer": "Gérer les affaires provinciales"
   },
   {
     "id": 16,
@@ -264,17 +187,6 @@
     "answer": "Le hockey"
   },
   {
-    "id": 25,
-    "question": "Quel est le symbole national du Canada?",
-    "options": [
-      "Le castor",
-      "Le caribou",
-      "L'orignal",
-      "L'ours polaire"
-    ],
-    "answer": "Le castor"
-  },
-  {
     "id": 26,
     "question": "Quelle est la devise canadienne?",
     "options": [
@@ -295,17 +207,6 @@
       "Les koalas"
     ],
     "answer": "Les ours polaires"
-  },
-  {
-    "id": 28,
-    "question": "Quel est l'hymne national canadien?",
-    "options": [
-      "Ô Canada",
-      "God Save the Queen",
-      "The Star-Spangled Banner",
-      "La Marseillaise"
-    ],
-    "answer": "Ô Canada"
   },
   {
     "id": 29,
@@ -487,7 +388,7 @@
     "id": 45,
     "question": "Quel est le nom de la province canadienne qui est la seule à avoir un littoral sur l'océan Pacifique ?",
     "options": [
-      "Colombie britannique",
+      "Colombie-Britannique",
       "Alberta",
       "Saskatchewan",
       "Manitoba"

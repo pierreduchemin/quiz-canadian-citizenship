@@ -11,50 +11,6 @@
     "answer": "Head of State"
   },
   {
-    "id": 2,
-    "question": "What is the role of the Senate of Canada?",
-    "options": [
-      "Propose laws",
-      "Pass laws",
-      "Represent provinces and territories",
-      "Represent citizens"
-    ],
-    "answer": "Represent provinces and territories"
-  },
-  {
-    "id": 3,
-    "question": "What is the role of provincial and territorial Members of Parliament?",
-    "options": [
-      "Propose laws",
-      "Pass laws",
-      "Represent provinces and territories",
-      "Represent citizens"
-    ],
-    "answer": "Represent provinces and territories"
-  },
-  {
-    "id": 4,
-    "question": "What is the role of federal Members of Parliament?",
-    "options": [
-      "Propose laws",
-      "Pass laws",
-      "Represent provinces and territories",
-      "Represent citizens"
-    ],
-    "answer": "Represent citizens"
-  },
-  {
-    "id": 5,
-    "question": "What is the role of political parties?",
-    "options": [
-      "Propose laws",
-      "Pass laws",
-      "Influence political decisions",
-      "Represent citizens"
-    ],
-    "answer": "Propose laws"
-  },
-  {
     "id": 6,
     "question": "What is the role of the media?",
     "options": [
@@ -64,28 +20,6 @@
       "Represent citizens"
     ],
     "answer": "Inform citizens"
-  },
-  {
-    "id": 7,
-    "question": "What is the role of lobby groups?",
-    "options": [
-      "Propose laws",
-      "Pass laws",
-      "Influence political decisions",
-      "Represent citizens"
-    ],
-    "answer": "Influence political decisions"
-  },
-  {
-    "id": 8,
-    "question": "What is the role of citizens?",
-    "options": [
-      "Propose laws",
-      "Pass laws",
-      "Influence political decisions",
-      "Elect representatives"
-    ],
-    "answer": "Elect representatives"
   },
   {
     "id": 9,
@@ -152,17 +86,6 @@
       "Manage national affairs"
     ],
     "answer": "Manage national affairs"
-  },
-  {
-    "id": 15,
-    "question": "What is the role of provincial and territorial governments?",
-    "options": [
-      "Manage national affairs",
-      "Manage municipal affairs",
-      "Manage territorial affairs",
-      "Manage provincial affairs"
-    ],
-    "answer": "Manage provincial affairs"
   },
   {
     "id": 16,
@@ -264,17 +187,6 @@
     "answer": "Hockey"
   },
   {
-    "id": 25,
-    "question": "What is the national symbol of Canada?",
-    "options": [
-      "Beaver",
-      "Caribou",
-      "Elk",
-      "Polar bear"
-    ],
-    "answer": "Beaver"
-  },
-  {
     "id": 26,
     "question": "What is the Canadian motto?",
     "options": [
@@ -295,17 +207,6 @@
       "Koalas"
     ],
     "answer": "Polar bears"
-  },
-  {
-    "id": 28,
-    "question": "What is the Canadian national anthem?",
-    "options": [
-      "O Canada",
-      "God Save the Queen",
-      "The Star-Spangled Banner",
-      "La Marseillaise"
-    ],
-    "answer": "O Canada"
   },
   {
     "id": 29,
