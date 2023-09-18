@@ -7,8 +7,8 @@ export class QuestionnaireModel {
     questions: Array<QuestionModel>
     questionSet: Array<number>
 
-    constructor(locale: string) {
-        this.questionSetLength = 20
+    constructor(locale: string, questionSetLength: number) {
+        this.questionSetLength = questionSetLength
         this.questionCount = 0
         this.score = 0
         this.questions = []

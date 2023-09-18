@@ -1,6 +1,8 @@
 {
     "info.app_title": "Examen de citoyenneté",
     "info.exam_intro": "Examen de citoyenneté",
+    "info.exam_locale_label": "Langue",
+    "info.exam_question_set_length_label": "Nombre de questions",
     "info.exam_good_answer": "Bravo ! Tu as eu la bonne réponse.",
     "info.exam_bad_answer": "Désolé... mais la bonne réponse était %{correct}.",
     "info.exam_finished": "Tu as terminé l'examen.",

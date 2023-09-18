@@ -1,6 +1,8 @@
 {
     "info.app_title": "Citizenship exam",
     "info.exam_intro": "Citizenship exam",
+    "info.exam_locale_label": "Language",
+    "info.exam_question_set_length_label": "Number of questions",
     "info.exam_good_answer": "Yay ! You got the good answer.",
     "info.exam_bad_answer": "Sorry... the good answer was %{correct}.",
     "info.exam_finished": "The exam is over.",

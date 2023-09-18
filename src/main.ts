@@ -1,14 +1,17 @@
 import Polyglot from "node-polyglot"
 import locale_fr from "./data/locale_fr_CA.json"
+import locale_en from "./data/locale_en_CA.json"
 import "./styles/index.scss"
 import { QuestionModel, QuestionnaireModel } from "./data/models"
 
-const polyglot = new Polyglot()
+let polyglot = new Polyglot()
 polyglot.extend(locale_fr)
 
 const app = document.querySelector("#app")! as HTMLElement
 
-const questionnaireModel = new QuestionnaireModel('fr_CA')
+let currentLocale: string = 'fr_CA'
+let currentQuestionSetLength: number = 20
+let questionnaireModel: QuestionnaireModel = new QuestionnaireModel(currentLocale, currentQuestionSetLength)
 
 init()
 
@@ -18,9 +21,42 @@ function init() {
   const introText = document.querySelector("#intro")! as HTMLHeadingElement
   introText.innerText = polyglot.t("info.exam_intro")
 
+  const localeLabel = document.querySelector("#localeLabel")! as HTMLHeadingElement
+  localeLabel.innerText = polyglot.t("info.exam_locale_label")
+
+  const questionSetLengthLabel = document.querySelector("#questionSetLengthLabel")! as HTMLHeadingElement
+  questionSetLengthLabel.innerText = polyglot.t("info.exam_question_set_length_label")
+
+  const localeSelect = document.querySelector("#locale") as HTMLSelectElement
+  localeSelect.addEventListener("change", () => {
+    updateModel()
+  })
+  const questionSetLengthSelect = document.querySelector("#questionSetLength") as HTMLSelectElement
+  questionSetLengthSelect.addEventListener("change", () => {
+    updateModel()
+  })
+
   const startButton = document.querySelector("#start")! as HTMLButtonElement
   startButton.innerText = polyglot.t("action.start")
   startButton.addEventListener("click", startQuiz)
+}
+
+function updateModel() {
+  const localeSelect = document.querySelector("#locale") as HTMLSelectElement
+  if (currentLocale !== localeSelect.value) {
+    currentLocale = localeSelect.value
+    polyglot = new Polyglot()
+    if (currentLocale === "en_CA") {
+      polyglot.extend(locale_en)
+    } else {
+      polyglot.extend(locale_fr)
+    }
+    init()
+  }
+
+  const questionSetLengthSelect = document.querySelector("#questionSetLength") as HTMLSelectElement
+  currentQuestionSetLength = parseInt(questionSetLengthSelect.value)
+  questionnaireModel = new QuestionnaireModel(currentLocale, currentQuestionSetLength)
 }
 
 function startQuiz(event: MouseEvent) {
@@ -47,7 +83,7 @@ function displayQuestion(index: number) {
 
   const title = getTitleElement(question.question)
   app.appendChild(title)
-  const answersDiv = createAnswers(question.options)
+  const answersDiv = createOptions(question.options)
   app.appendChild(answersDiv)
 
   const submitButton = getSubmitButton()
@@ -99,24 +135,24 @@ function submit() {
 
   const feedback = getFeedbackMessage(isCorrect, question.answer)
   app.appendChild(feedback)
-  
+
   displayNextQuestionButton(() => {
     questionnaireModel.questionCount++
     displayQuestion(questionnaireModel.questionCount)
   })
 }
 
-function createAnswers(answers: string[]) {
-  const answersDiv = document.createElement("div")
+function createOptions(options: string[]) {
+  const optionsDiv = document.createElement("div")
 
-  answersDiv.classList.add("answers")
+  optionsDiv.classList.add("answers")
 
-  for (const answer of answers) {
+  for (const answer of options) {
     const label = getAnswerElement(answer)
-    answersDiv.appendChild(label)
+    optionsDiv.appendChild(label)
   }
 
-  return answersDiv
+  return optionsDiv
 }
 
 function getTitleElement(text: string) {
@@ -159,7 +195,7 @@ function getRestartButton() {
 
 function showFeedback(isCorrect: boolean, correct: string, answer: string) {
   const correctAnswerId = formatId(correct)
-  
+
   const correctElement = document.querySelector(
     `label[for="${correctAnswerId}"]`
   )! as HTMLLabelElement
