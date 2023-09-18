@@ -121,6 +121,7 @@ function createAnswers(answers: string[]) {
 
 function getTitleElement(text: string) {
   const title = document.createElement("h3")
+  title.classList.add("question-title")
   title.innerText = text
   return title
 }
