@@ -1,0 +1,45 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "command": "npm run dev",
+            "name": "Start app",
+            "request": "launch",
+            "type": "node-terminal"
+        },
+        {
+            "name": "Start debug in Firefox",
+            "type": "firefox",
+            "request": "launch",
+            "reAttach": true,
+            "url": "http://localhost:5173/quiz-canadian-citizenship/",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Start debug in Chrome",
+            "url": "http://localhost:5173/quiz-canadian-citizenship/",
+            "webRoot": "${workspaceFolder}"
+        },
+    ],
+    "compounds": [
+        {
+            "name": "Debug in Chrome",
+            "configurations": [
+                "Start app",
+                "Start debug in Chrome"
+            ]
+        },
+        {
+            "name": "Debug in Firefox",
+            "configurations": [
+                "Start app",
+                "Start debug in Firefox"
+            ]
+        }
+    ]
+}
