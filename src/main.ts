@@ -11,34 +11,65 @@ const app = document.querySelector("#app")! as HTMLElement
 
 let currentLocale: string = 'fr_CA'
 let currentQuestionSetLength: number = 20
-let questionnaireModel: QuestionnaireModel = new QuestionnaireModel(currentLocale, currentQuestionSetLength)
+let questionnaireModel: QuestionnaireModel
 
 init()
 
 function init() {
+  questionnaireModel = new QuestionnaireModel(currentLocale, currentQuestionSetLength)
+
+  clean()
   document.title = polyglot.t("info.app_title")
 
-  const introText = document.querySelector("#intro")! as HTMLHeadingElement
-  introText.innerText = polyglot.t("info.exam_intro")
+  const app = document.querySelector('#app')! as HTMLElement
 
-  const localeLabel = document.querySelector("#localeLabel")! as HTMLHeadingElement
-  localeLabel.innerText = polyglot.t("info.exam_locale_label")
+  const h1: HTMLHeadingElement = document.createElement("h1")
+  h1.innerText = polyglot.t("info.exam_intro")
+  h1.classList.add('intro')
+  h1.classList.add('big-title')
+  app.appendChild(h1)
 
-  const questionSetLengthLabel = document.querySelector("#questionSetLengthLabel")! as HTMLHeadingElement
-  questionSetLengthLabel.innerText = polyglot.t("info.exam_question_set_length_label")
+  const divLocale: HTMLDivElement = document.createElement('div')
+  divLocale.innerText = polyglot.t("info.exam_locale_label")
+  app.appendChild(divLocale)
 
-  const localeSelect = document.querySelector("#locale") as HTMLSelectElement
-  localeSelect.addEventListener("change", () => {
+  const selectLocale: HTMLSelectElement = document.createElement('select')
+  selectLocale.id = 'locale'
+  const frOption: HTMLOptionElement = document.createElement('option')
+  frOption.value = 'fr_CA'
+  frOption.innerText = 'Français'
+  selectLocale.options.add(frOption)
+  const enOption: HTMLOptionElement = document.createElement('option')
+  enOption.value = 'en_CA'
+  enOption.innerText = 'English'
+  selectLocale.options.add(enOption)
+  selectLocale.addEventListener("change", () => {
     updateModel()
   })
-  const questionSetLengthSelect = document.querySelector("#questionSetLength") as HTMLSelectElement
-  questionSetLengthSelect.addEventListener("change", () => {
+  app.appendChild(selectLocale)
+
+  const divQuestionSetLength: HTMLDivElement = document.createElement('div')
+  divQuestionSetLength.innerText = polyglot.t("info.exam_question_set_length_label")
+  app.appendChild(divQuestionSetLength)
+
+  const selectQuestionSetLength: HTMLSelectElement = document.createElement('select')
+  selectQuestionSetLength.id = 'questionSetLength'
+  for (let i = 10; i <= 40; i += 10) {
+    const optionCount: HTMLOptionElement = document.createElement('option')
+    optionCount.value = i.toString()
+    optionCount.innerText = i.toString()
+    selectQuestionSetLength.options.add(optionCount)
+  }
+  selectQuestionSetLength.addEventListener("change", () => {
     updateModel()
   })
+  app.appendChild(selectQuestionSetLength)
 
-  const startButton = document.querySelector("#start")! as HTMLButtonElement
-  startButton.innerText = polyglot.t("action.start")
-  startButton.addEventListener("click", startQuiz)
+  const buttonStart: HTMLButtonElement = document.createElement('button')
+  buttonStart.id = 'start'
+  buttonStart.innerText = polyglot.t("action.start")
+  buttonStart.addEventListener("click", startQuiz)
+  app.appendChild(buttonStart)
 }
 
 function updateModel() {
@@ -68,12 +99,14 @@ function clean() {
   while (app.firstElementChild) {
     app.firstElementChild.remove()
   }
-  const progress = getProgressBar(questionnaireModel.questionCount, questionnaireModel.questionSetLength)
-  app.appendChild(progress)
 }
 
 function displayQuestion(index: number) {
   clean()
+
+  const progress = getProgressBar(questionnaireModel.questionCount, questionnaireModel.questionSetLength)
+  app.appendChild(progress)
+
   const question: QuestionModel = questionnaireModel.questions[questionnaireModel.questionSet[index]]
 
   if (!question) {
@@ -87,7 +120,31 @@ function displayQuestion(index: number) {
   app.appendChild(answersDiv)
 
   const submitButton = getSubmitButton()
-  submitButton.addEventListener("click", submit)
+  submitButton.addEventListener("click", () => {
+    const selectedAnswer = app.querySelector('input[name="answer"]:checked') as HTMLInputElement | null
+    const value = selectedAnswer?.value
+    if (!value) {
+      return
+    }
+    disableAllAnswers()
+  
+    const question: QuestionModel = questionnaireModel.questions[questionnaireModel.questionSet[questionnaireModel.questionCount]]
+    const isCorrect = question.answer === value
+  
+    if (isCorrect) {
+      questionnaireModel.score++
+    }
+  
+    showFeedback(isCorrect, question.answer, value)
+  
+    const feedback = getFeedbackMessage(isCorrect, question.answer)
+    app.appendChild(feedback)
+  
+    displayNextQuestionButton(() => {
+      questionnaireModel.questionCount++
+      displayQuestion(questionnaireModel.questionCount)
+    })
+  })
   app.appendChild(submitButton)
 }
 
@@ -110,36 +167,9 @@ function displayFinishMessage() {
 
   const restartButton = getRestartButton()
   restartButton.addEventListener("click", () => {
-    location.reload()
+    init()
   })
   app.appendChild(restartButton)
-}
-
-function submit() {
-  const selectedAnswer = app.querySelector('input[name="answer"]:checked') as HTMLInputElement | null
-  const value = selectedAnswer?.value
-  if (!value) {
-    return
-  }
-  disableAllAnswers()
-
-
-  const question: QuestionModel = questionnaireModel.questions[questionnaireModel.questionSet[questionnaireModel.questionCount]]
-  const isCorrect = question.answer === value
-
-  if (isCorrect) {
-    questionnaireModel.score++
-  }
-
-  showFeedback(isCorrect, question.answer, value)
-
-  const feedback = getFeedbackMessage(isCorrect, question.answer)
-  app.appendChild(feedback)
-
-  displayNextQuestionButton(() => {
-    questionnaireModel.questionCount++
-    displayQuestion(questionnaireModel.questionCount)
-  })
 }
 
 function createOptions(options: string[]) {
