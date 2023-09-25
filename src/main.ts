@@ -33,37 +33,13 @@ function init() {
   divLocale.innerText = polyglot.t("info.exam_locale_label")
   app.appendChild(divLocale)
 
-  const selectLocale: HTMLSelectElement = document.createElement('select')
-  selectLocale.id = 'locale'
-  const frOption: HTMLOptionElement = document.createElement('option')
-  frOption.value = 'fr_CA'
-  frOption.innerText = 'Français'
-  selectLocale.options.add(frOption)
-  const enOption: HTMLOptionElement = document.createElement('option')
-  enOption.value = 'en_CA'
-  enOption.innerText = 'English'
-  selectLocale.options.add(enOption)
-  selectLocale.addEventListener("change", () => {
-    updateModel()
-  })
-  app.appendChild(selectLocale)
+  app.appendChild(getLocaleSelect())
 
   const divQuestionSetLength: HTMLDivElement = document.createElement('div')
   divQuestionSetLength.innerText = polyglot.t("info.exam_question_set_length_label")
   app.appendChild(divQuestionSetLength)
 
-  const selectQuestionSetLength: HTMLSelectElement = document.createElement('select')
-  selectQuestionSetLength.id = 'questionSetLength'
-  for (let i = 10; i <= 40; i += 10) {
-    const optionCount: HTMLOptionElement = document.createElement('option')
-    optionCount.value = i.toString()
-    optionCount.innerText = i.toString()
-    selectQuestionSetLength.options.add(optionCount)
-  }
-  selectQuestionSetLength.addEventListener("change", () => {
-    updateModel()
-  })
-  app.appendChild(selectQuestionSetLength)
+  app.appendChild(getSelectQuestionSetLength())
 
   const buttonStart: HTMLButtonElement = document.createElement('button')
   buttonStart.id = 'start'
@@ -127,19 +103,19 @@ function displayQuestion(index: number) {
       return
     }
     disableAllAnswers()
-  
+
     const question: QuestionModel = questionnaireModel.questions[questionnaireModel.questionSet[questionnaireModel.questionCount]]
     const isCorrect = question.answer === value
-  
+
     if (isCorrect) {
       questionnaireModel.score++
     }
-  
+
     showFeedback(isCorrect, question.answer, value)
-  
+
     const feedback = getFeedbackMessage(isCorrect, question.answer)
     app.appendChild(feedback)
-  
+
     displayNextQuestionButton(() => {
       questionnaireModel.questionCount++
       displayQuestion(questionnaireModel.questionCount)
@@ -172,8 +148,8 @@ function displayFinishMessage() {
   app.appendChild(restartButton)
 }
 
-function createOptions(options: string[]) {
-  const optionsDiv = document.createElement("div")
+function createOptions(options: string[]): HTMLDivElement {
+  const optionsDiv: HTMLDivElement = document.createElement("div")
 
   optionsDiv.classList.add("answers")
 
@@ -185,8 +161,8 @@ function createOptions(options: string[]) {
   return optionsDiv
 }
 
-function getTitleElement(text: string) {
-  const title = document.createElement("h3")
+function getTitleElement(text: string): HTMLHeadingElement {
+  const title: HTMLHeadingElement = document.createElement("h3")
   title.classList.add("question-title")
   title.innerText = text
   return title
@@ -196,8 +172,8 @@ function formatId(text: string) {
   return text.replace(/\s/gi, "-").replace(/\"/gi, "'").toLowerCase()
 }
 
-function getAnswerElement(text: string) {
-  const label = document.createElement("label")
+function getAnswerElement(text: string): HTMLLabelElement {
+  const label: HTMLLabelElement = document.createElement("label")
   label.innerText = text
   const input = document.createElement("input")
   const id = formatId(text)
@@ -210,15 +186,15 @@ function getAnswerElement(text: string) {
   return label
 }
 
-function getSubmitButton() {
-  const submitButton = document.createElement("button")
+function getSubmitButton(): HTMLButtonElement {
+  const submitButton: HTMLButtonElement = document.createElement("button")
   submitButton.innerText = polyglot.t("action.submit")
   submitButton.classList.add("submit")
   return submitButton
 }
 
-function getRestartButton() {
-  const restartButton = document.createElement("button")
+function getRestartButton(): HTMLButtonElement {
+  const restartButton: HTMLButtonElement = document.createElement("button")
   restartButton.innerText = polyglot.t("action.restart")
   return restartButton
 }
@@ -239,8 +215,8 @@ function showFeedback(isCorrect: boolean, correct: string, answer: string) {
   selectedElement.classList.add(isCorrect ? "correct" : "incorrect")
 }
 
-function getFeedbackMessage(isCorrect: boolean, correct: string) {
-  const paragraph = document.createElement("p")
+function getFeedbackMessage(isCorrect: boolean, correct: string): HTMLParagraphElement {
+  const paragraph: HTMLParagraphElement = document.createElement("p")
   paragraph.innerText = isCorrect
     ? polyglot.t("info.exam_good_answer")
     : polyglot.t("info.exam_bad_answer", { correct })
@@ -248,8 +224,8 @@ function getFeedbackMessage(isCorrect: boolean, correct: string) {
   return paragraph
 }
 
-function getProgressBar(value: number, max: number) {
-  const progress = document.createElement("progress")
+function getProgressBar(value: number, max: number): HTMLProgressElement {
+  const progress: HTMLProgressElement = document.createElement("progress")
   progress.classList.add("progress")
   progress.classList.add("is-canadian-red")
   progress.setAttribute("max", max.toString())
@@ -275,4 +251,79 @@ function disableAllAnswers() {
   for (const radio of radioInputs) {
     (radio as HTMLInputElement).disabled = true
   }
+}
+
+function getLocaleSelect(): HTMLDivElement {
+  const divControl: HTMLDivElement = document.createElement('div')
+  divControl.classList.add('control')
+  divControl.classList.add('has-icons-left')
+
+  const divLocale: HTMLDivElement = document.createElement('div')
+  divLocale.classList.add('select')
+
+  const selectLocale: HTMLSelectElement = document.createElement('select')
+  selectLocale.id = 'locale'
+  const frOption: HTMLOptionElement = document.createElement('option')
+  frOption.selected = true
+  frOption.value = 'fr_CA'
+  frOption.innerText = 'Français'
+  selectLocale.options.add(frOption)
+  const enOption: HTMLOptionElement = document.createElement('option')
+  enOption.value = 'en_CA'
+  enOption.innerText = 'English'
+  selectLocale.options.add(enOption)
+  selectLocale.addEventListener("change", () => {
+    updateModel()
+  })
+  divLocale.appendChild(selectLocale)
+  divControl.appendChild(divLocale)
+
+  const divIcon: HTMLDivElement = document.createElement('div')
+  divIcon.classList.add('icon')
+  divIcon.classList.add('is-small')
+  divIcon.classList.add('is-left')
+
+  const iIcon = document.createElement('i')
+  iIcon.classList.add('fas')
+  iIcon.classList.add('fa-globe')
+  divIcon.appendChild(iIcon)
+  divControl.appendChild(divIcon)
+
+  return divControl
+}
+
+function getSelectQuestionSetLength(): HTMLDivElement {
+  const divControl: HTMLDivElement = document.createElement('div')
+  divControl.classList.add('control')
+  divControl.classList.add('has-icons-left')
+
+  const divQuestionSetLength: HTMLDivElement = document.createElement('div')
+  divQuestionSetLength.classList.add('select')
+
+  const selectQuestionSetLength: HTMLSelectElement = document.createElement('select')
+  selectQuestionSetLength.id = 'questionSetLength'
+  for (let i = 10; i <= 40; i += 10) {
+    const optionCount: HTMLOptionElement = document.createElement('option')
+    optionCount.value = i.toString()
+    optionCount.innerText = i.toString()
+    selectQuestionSetLength.options.add(optionCount)
+  }
+  selectQuestionSetLength.addEventListener("change", () => {
+    updateModel()
+  })
+  divQuestionSetLength.appendChild(selectQuestionSetLength)
+  divControl.appendChild(divQuestionSetLength)
+
+  const divIcon: HTMLDivElement = document.createElement('div')
+  divIcon.classList.add('icon')
+  divIcon.classList.add('is-small')
+  divIcon.classList.add('is-left')
+
+  const iIcon = document.createElement('i')
+  iIcon.classList.add('fas')
+  iIcon.classList.add('fa-hashtag')
+  divIcon.appendChild(iIcon)
+  divControl.appendChild(divIcon)
+
+  return divControl
 }
